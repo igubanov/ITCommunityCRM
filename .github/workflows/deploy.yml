@@ -24,6 +24,14 @@ jobs:
         with:
           name: backend
           path: back
+          
+      - name: Update connection string
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: '"DefaultConnection": "Place here a connection string to database"'
+          replace: '"DefaultConnection": "${{ secrets.FREEASPHOSTING_CONNECTION_STRING }}"'
+          regex: false
+          include: "back/appsettings.json"
 
       - uses: vimtor/action-zip@v1.1
         with:
