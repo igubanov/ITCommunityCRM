@@ -32,6 +32,14 @@ jobs:
           replace: '"DefaultConnection": "${{ secrets.FREEASPHOSTING_CONNECTION_STRING }}"'
           regex: false
           include: "back/appsettings.json"
+          
+      - name: Update TG token
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: '"TelegramToken": "Place here a token for the tg bot"'
+          replace: '"TelegramToken": "${{ secrets.TG_BOT_TOKEN }}"'
+          regex: false
+          include: "back/appsettings.json"
 
       - uses: vimtor/action-zip@v1.1
         with:
