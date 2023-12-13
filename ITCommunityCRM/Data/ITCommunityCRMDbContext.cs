@@ -11,12 +11,12 @@ namespace ITCommunityCRM.Data
         public DbSet<NotificationType> NotificationTypes { get; set; }
         public DbSet<NotificationTemplate> NotificationMessageTemplates { get; set; }
         public DbSet<Group> Groups { get; set; }
-
+        public DbSet<TelegramChat> TelegramChats { get; set; }
 
         public ITCommunityCRMDbContext(DbContextOptions<ITCommunityCRMDbContext> options)
             : base(options)
         {
-           
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
