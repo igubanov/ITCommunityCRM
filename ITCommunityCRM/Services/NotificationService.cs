@@ -1,6 +1,7 @@
 ﻿using ITCommunityCRM.Data;
 using ITCommunityCRM.Data.Models;
 using ITCommunityCRM.Data.Models.Consts;
+using ITCommunityCRM.Services.Telegram;
 using Microsoft.EntityFrameworkCore;
 
 namespace ITCommunityCRM.Services

@@ -6,6 +6,8 @@ using ITCommunityCRM.Services.Bot;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Telegram.Bot;
+using ITCommunityCRM.Services.Telegram;
+using ITCommunityCRM.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,8 +43,10 @@ builder.Services.AddTransient<TemplateServise>();
 builder.Services.AddScoped<UpdateHandler>();
 builder.Services.AddScoped<ReceiverService>();
 builder.Services.AddHostedService<PollingService>();
+builder.Services.AddTransient<TelegramIncomingMessageService>();
 
 var app = builder.Build();
+UpdateDatabase<ITCommunityCRMDbContext>(app);
 
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
@@ -56,6 +60,7 @@ app.UseMigrationsEndPoint();
 //    app.UseHsts();
 //}
 
+app.UseIncomingTelegramMessage();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -69,3 +74,16 @@ app.MapControllerRoute(
 app.MapRazorPages();
 
 app.Run();
+
+
+
+static void UpdateDatabase<T>(IApplicationBuilder app)
+    where T : DbContext
+{
+    using (var scope = app.ApplicationServices.CreateScope())
+    {
+        var db = scope.ServiceProvider.GetRequiredService<T>().Database;
+        db.SetCommandTimeout(160);
+        db.Migrate();
+    }
+}

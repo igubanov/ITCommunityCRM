@@ -4,7 +4,7 @@ using ITCommunityCRM.Data.Models.Consts;
 using Microsoft.EntityFrameworkCore;
 using Telegram.Bot;
 
-namespace ITCommunityCRM.Services
+namespace ITCommunityCRM.Services.Telegram
 {
     public class TelegramNotification
     {
